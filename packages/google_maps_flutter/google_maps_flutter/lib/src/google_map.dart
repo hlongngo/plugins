@@ -50,6 +50,7 @@ class GoogleMap extends StatefulWidget {
     this.polylines,
     this.circles,
     this.onCameraMoveStarted,
+    this.onMapSnapshotReady,
     this.onCameraMove,
     this.onCameraIdle,
     this.onTap,
@@ -118,6 +119,8 @@ class GoogleMap extends StatefulWidget {
   /// 3. Camera motion initiated in response to user gestures on the map.
   ///    For example: pan, tilt, pinch to zoom, or rotate.
   final VoidCallback onCameraMoveStarted;
+
+  final VoidCallback onMapSnapshotReady;
 
   /// Called repeatedly as the camera continues to move after an
   /// onCameraMoveStarted call.

@@ -44,6 +44,12 @@ class GoogleMapController {
 
   Future<dynamic> _handleMethodCall(MethodCall call) async {
     switch (call.method) {
+      //ngo custom
+      case 'map#onMapSnapshotReady':
+        if (_googleMapState.widget.onMapSnapshotReady != null) {
+          _googleMapState.widget.onMapSnapshotReady();
+        }
+        break;
       case 'camera#onMoveStarted':
         if (_googleMapState.widget.onCameraMoveStarted != null) {
           _googleMapState.widget.onCameraMoveStarted();

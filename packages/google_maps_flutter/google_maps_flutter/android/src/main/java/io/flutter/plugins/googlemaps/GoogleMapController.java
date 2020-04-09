@@ -222,6 +222,15 @@ final class GoogleMapController
     updateInitialPolygons();
     updateInitialPolylines();
     updateInitialCircles();
+
+    //ngo
+    googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+      @Override
+      public void onMapLoaded() {
+        final Map<String, Object> arguments = new HashMap<>(2);
+        methodChannel.invokeMethod("map#onMapSnapshotReady", arguments);
+      }
+    });
   }
 
   @Override
