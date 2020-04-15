@@ -223,12 +223,17 @@ final class GoogleMapController
     updateInitialPolylines();
     updateInitialCircles();
 
+    onMapLoadedSetup();
+  }
+
+  void onMapLoadedSetup() {
     //ngo
     googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
       @Override
       public void onMapLoaded() {
         final Map<String, Object> arguments = new HashMap<>(2);
         methodChannel.invokeMethod("map#onMapSnapshotReady", arguments);
+//        onMapLoadedSetup();
       }
     });
   }
@@ -310,6 +315,7 @@ final class GoogleMapController
         }
       case "camera#move":
         {
+          onMapLoadedSetup();
           final CameraUpdate cameraUpdate =
               Convert.toCameraUpdate(call.argument("cameraUpdate"), density);
           moveCamera(cameraUpdate);
@@ -318,6 +324,7 @@ final class GoogleMapController
         }
       case "camera#animate":
         {
+          onMapLoadedSetup();
           final CameraUpdate cameraUpdate =
               Convert.toCameraUpdate(call.argument("cameraUpdate"), density);
           animateCamera(cameraUpdate);
