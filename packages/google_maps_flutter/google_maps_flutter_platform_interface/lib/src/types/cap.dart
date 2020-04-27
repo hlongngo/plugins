@@ -2,7 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of google_maps_flutter;
+import 'package:meta/meta.dart' show immutable;
+
+import 'types.dart';
 
 /// Cap that can be applied at the start or end vertex of a [Polyline].
 @immutable
@@ -43,10 +45,11 @@ class Cap {
   }) {
     assert(bitmapDescriptor != null);
     assert(refWidth > 0.0);
-    return Cap._(<dynamic>['customCap', bitmapDescriptor._toJson(), refWidth]);
+    return Cap._(<dynamic>['customCap', bitmapDescriptor.toJson(), refWidth]);
   }
 
   final dynamic _json;
 
-  dynamic _toJson() => _json;
+  /// Converts this object to something serializable in JSON.
+  dynamic toJson() => _json;
 }

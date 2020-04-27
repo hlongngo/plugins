@@ -2,7 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of google_maps_flutter;
+import 'dart:ui' show hashValues;
+
+import 'package:meta/meta.dart';
 
 /// A pair of latitude and longitude coordinates, stored as degrees.
 class LatLng {
@@ -26,11 +28,13 @@ class LatLng {
   /// The longitude in degrees between -180.0 (inclusive) and 180.0 (exclusive).
   final double longitude;
 
-  dynamic _toJson() {
+  /// Converts this object to something serializable in JSON.
+  dynamic toJson() {
     return <double>[latitude, longitude];
   }
 
-  static LatLng _fromJson(dynamic json) {
+  /// Initialize a LatLng from an \[lat, lng\] array.
+  static LatLng fromJson(dynamic json) {
     if (json == null) {
       return null;
     }
@@ -73,8 +77,9 @@ class LatLngBounds {
   /// The northeast corner of the rectangle.
   final LatLng northeast;
 
-  dynamic _toList() {
-    return <dynamic>[southwest._toJson(), northeast._toJson()];
+  /// Converts this object to something serializable in JSON.
+  dynamic toJson() {
+    return <dynamic>[southwest.toJson(), northeast.toJson()];
   }
 
   /// Returns whether this rectangle contains the given [LatLng].
@@ -102,8 +107,8 @@ class LatLngBounds {
       return null;
     }
     return LatLngBounds(
-      southwest: LatLng._fromJson(json[0]),
-      northeast: LatLng._fromJson(json[1]),
+      southwest: LatLng.fromJson(json[0]),
+      northeast: LatLng.fromJson(json[1]),
     );
   }
 

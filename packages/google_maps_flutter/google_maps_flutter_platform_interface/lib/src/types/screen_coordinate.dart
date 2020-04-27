@@ -2,7 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of google_maps_flutter;
+import 'dart:ui' show hashValues;
+
+import 'package:meta/meta.dart' show immutable, required;
 
 /// Represents a point coordinate in the [GoogleMap]'s view.
 ///
@@ -23,7 +25,8 @@ class ScreenCoordinate {
   /// Represents the number of pixels from the top of the [GoogleMap].
   final int y;
 
-  dynamic _toJson() {
+  /// Converts this object to something serializable in JSON.
+  dynamic toJson() {
     return <String, int>{
       "x": x,
       "y": y,

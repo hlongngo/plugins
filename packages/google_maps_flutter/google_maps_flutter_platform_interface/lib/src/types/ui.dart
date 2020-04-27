@@ -2,7 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of google_maps_flutter;
+import 'dart:ui' show hashValues;
+
+import 'types.dart';
 
 /// Type of map tiles to display.
 // Enum constants must be indexed to match the corresponding int constants of
@@ -42,7 +44,8 @@ class CameraTargetBounds {
   /// Unbounded camera target.
   static const CameraTargetBounds unbounded = CameraTargetBounds(null);
 
-  dynamic _toJson() => <dynamic>[bounds?._toList()];
+  /// Converts this object to something serializable in JSON.
+  dynamic toJson() => <dynamic>[bounds?.toJson()];
 
   @override
   bool operator ==(dynamic other) {
@@ -82,7 +85,8 @@ class MinMaxZoomPreference {
   static const MinMaxZoomPreference unbounded =
       MinMaxZoomPreference(null, null);
 
-  dynamic _toJson() => <dynamic>[minZoom, maxZoom];
+  /// Converts this object to something serializable in JSON.
+  dynamic toJson() => <dynamic>[minZoom, maxZoom];
 
   @override
   bool operator ==(dynamic other) {

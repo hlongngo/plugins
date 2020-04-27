@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-part of google_maps_flutter;
+import 'package:meta/meta.dart' show immutable;
 
 /// Item used in the stroke pattern for a Polyline.
 @immutable
@@ -30,5 +30,6 @@ class PatternItem {
 
   final dynamic _json;
 
-  dynamic _toJson() => _json;
+  /// Converts this object to something serializable in JSON.
+  dynamic toJson() => _json;
 }
