@@ -66,6 +66,11 @@ class MethodChannelGoogleMapsFlutter extends GoogleMapsFlutterPlatform {
   }
 
   @override
+  Stream<MapSnapshotReadyEvent> onMapSnapshotReady({@required int mapId}) {
+    return _events(mapId).whereType<MapSnapshotReadyEvent>();
+  }
+
+  @override
   Stream<CameraMoveEvent> onCameraMove({@required int mapId}) {
     return _events(mapId).whereType<CameraMoveEvent>();
   }
@@ -117,6 +122,9 @@ class MethodChannelGoogleMapsFlutter extends GoogleMapsFlutterPlatform {
 
   Future<dynamic> _handleMethodCall(MethodCall call, int mapId) async {
     switch (call.method) {
+      case 'map#onMapSnapshotReady':
+        _mapEventStreamController.add(MapSnapshotReadyEvent(mapId));
+        break;
       case 'camera#onMoveStarted':
         _mapEventStreamController.add(CameraMoveStartedEvent(mapId));
         break;

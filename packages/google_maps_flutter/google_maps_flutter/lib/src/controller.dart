@@ -54,6 +54,13 @@ class GoogleMapController {
   final _GoogleMapState _googleMapState;
 
   void _connectStreams(int mapId) {
+    //ngo modify
+    if (_googleMapState.widget.onMapSnapshotReady != null) {
+      _googleMapsFlutterPlatform
+          .onCameraMoveStarted(mapId: mapId)
+          .listen((_) => _googleMapState.widget.onMapSnapshotReady());
+    }
+
     if (_googleMapState.widget.onCameraMoveStarted != null) {
       _googleMapsFlutterPlatform
           .onCameraMoveStarted(mapId: mapId)

@@ -254,6 +254,11 @@ abstract class GoogleMapsFlutterPlatform extends PlatformInterface {
     throw UnimplementedError('onCameraMoveStarted() has not been implemented.');
   }
 
+  /// The Camera started moving.
+  Stream<MapSnapshotReadyEvent> onMapSnapshotReady({@required int mapId}) {
+    throw UnimplementedError('onCameraMoveStarted() has not been implemented.');
+  }
+
   /// The Camera finished moving to a new [CameraPosition].
   Stream<CameraMoveEvent> onCameraMove({@required int mapId}) {
     throw UnimplementedError('onCameraMove() has not been implemented.');
