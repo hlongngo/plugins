@@ -55,6 +55,7 @@ static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toD
   FLTPolygonsController* _polygonsController;
   FLTPolylinesController* _polylinesController;
   FLTCirclesController* _circlesController;
+  int _countObserver;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -62,6 +63,7 @@ static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toD
                     arguments:(id _Nullable)args
                     registrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   if (self = [super init]) {
+    _countObserver = 0;
     _viewId = viewId;
 
     GMSCameraPosition* camera = ToOptionalCameraPosition(args[@"initialCameraPosition"]);
@@ -114,7 +116,22 @@ static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toD
   return self;
 }
 
+- (void)dealloc {
+    if (@available(iOS 11, *)) {
+    } else {
+        @try{
+            for(int i = 0; i < _countObserver; i++) {
+               [_mapView removeObserver:self forKeyPath:@"frame"];
+            }
+        }@catch(id anException){
+
+        }
+    }
+
+}
+
 - (UIView*)view {
+   _countObserver = _countObserver + 1;
   [_mapView addObserver:self forKeyPath:@"frame" options:0 context:nil];
   return _mapView;
 }
@@ -125,6 +142,7 @@ static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toD
                        context:(void*)context {
   if (_cameraDidInitialSetup) {
     // We only observe the frame for initial setup.
+    _countObserver = _countObserver - 1;
     [_mapView removeObserver:self forKeyPath:@"frame"];
     return;
   }
@@ -138,6 +156,7 @@ static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toD
       return;
     }
     _cameraDidInitialSetup = YES;
+    _countObserver = _countObserver - 1;
     [_mapView removeObserver:self forKeyPath:@"frame"];
     [_mapView moveCamera:[GMSCameraUpdate setCamera:_mapView.camera]];
   } else {
